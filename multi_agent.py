@@ -161,7 +161,7 @@ def process_query(query: str) -> str:
         # Check RAG scores first
         extracted_query = extract_features_from_caption(query)
         rag_check_task = Task(
-            description=f"Search for furniture matching: {extracted_query}\nReturn raw results with confidence scores.",
+            description=f"Search for furniture matching: {extracted_query}\n and Return the results with confidence scores.",
             agent=rag_agent,
             expected_output="Raw search results with scores",
         )
@@ -183,7 +183,7 @@ def process_query(query: str) -> str:
             if has_high_confidence:
                 # Use RAG agent for final result
                 rag_final_task = Task(
-                    description=f"""Find furniture matching: {extracted_query}Format each result with description, price, and confidence score.
+                    description=f"""Find furniture matching: {extracted_query}Format each result with image path, description, price, and confidence score.
 Only include results with score >= 0.9""",
                     agent=rag_agent,
                     expected_output="Formatted furniture recommendations",
@@ -240,7 +240,7 @@ def handle_query(query: str) -> str:
 # Example usage
 if __name__ == "__main__":
     # Test with example query
-    query = "hello"
+    query = "blue sofa"
     result = handle_query(query)
     print("Final Result:")
     print(result)
